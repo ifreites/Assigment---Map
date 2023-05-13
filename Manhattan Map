@@ -1,0 +1,28 @@
+# Install and load required packages
+install.packages("leaflet")
+library(leaflet)
+
+# Create a leaflet map centered on Manhattan
+map <- leaflet() %>%
+  setView(lng = -73.9712, lat = 40.7831, zoom = 13)
+
+# Add a tile layer using OpenStreetMap
+map %>% addTiles()
+
+# Add a custom map title
+map %>% addTitle("Big Apple - Isaac Home")
+
+# Define the coordinates of subway stations in Manhattan
+subway_stations <- data.frame(
+  name = c("Grand Central Terminal", "Times Square", "Union Square"),
+  lat = c(40.7527, 40.7577, 40.7359),
+  lng = c(-73.9772, -73.9857, -73.9903)
+)
+
+# Add markers for subway stations
+map %>% addMarkers(
+  data = subway_stations,
+  lng = ~lng, lat = ~lat,
+  popup = ~name,
+  label = ~name
+)
